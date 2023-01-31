@@ -1,0 +1,16 @@
+
+/target
+
+
+# Added by cargo
+#
+# already existing elements were commented out
+
+#/target
+
+.calcit-error.cirru
+.compact-inc.cirru
+
+/dylibs/
+
+js-out
