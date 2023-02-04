@@ -1,7 +1,7 @@
 
 {} (:package |app)
   :configs $ {} (:init-fn |app.main/main!) (:reload-fn |app.main/reload!) (:version |0.0.6)
-    :modules $ [] |calcit-http/ |calcit-json/
+    :modules $ [] |calcit-http/ |calcit-json/ |stir-template/ |lilac/
   :entries $ {}
     :server $ {} (:init-fn |http.test/demo-server!) (:reload-fn |http.test/reload!)
       :modules $ []
@@ -26,7 +26,17 @@
                 :body $ format-cirru-edn req
               "\"/html" $ {} (:status :ok) (:code 200)
                 :headers $ {} (:content-type "\"text/html")
-                :body "\"<h1>This is demo html</h1>"
+                :body $ make-page
+                  stir-html $ div
+                    {} $ :style
+                      {} $ :font-family ui/font-normal
+                    h1
+                      {} $ :style
+                        {} $ :color :red
+                      , "\"A demo page"
+                  {}
+                    :title $ {} (:innerHTML "\"Calcit HTTP Demo")
+                    :styles $ [] "\"https://cdn.tiye.me/favored-fonts/main-fonts.css"
               "\"/json" $ {} (:status :ok) (:code 200)
                 :headers $ {} (:content-type "\"application/json")
                 :body $ json/stringify
@@ -37,4 +47,8 @@
       :ns $ quote
         ns app.main $ :require
           http.core :refer $ serve-http!
+          stir-template.core :refer $ stir-html
+          stir-template.alias :refer $ div h1
+          stir-template.shell-page :refer $ make-page
+          stir-template.ui :as ui
           json.core :as json

@@ -20,7 +20,7 @@ jobs:
       - name: add cr
         run: |
           mkdir -p $GITHUB_WORKSPACE/bin
-          wget -O $GITHUB_WORKSPACE/bin/cr https://github.com/calcit-lang/calcit/releases/download/0.6.20/cr
+          wget -O $GITHUB_WORKSPACE/bin/cr https://github.com/calcit-lang/calcit/releases/download/0.6.21/cr
           chmod +x $GITHUB_WORKSPACE/bin/cr
           echo "::add-path::$GITHUB_WORKSPACE/bin"
 
@@ -33,5 +33,7 @@ jobs:
           mkdir -p ~/.config/calcit/modules/ && cd ~/.config/calcit/modules/
           && git clone https://github.com/calcit-lang/calcit-http.git
           && git clone https://github.com/calcit-lang/calcit-json.git
+          && git clone https://github.com/calcit-lang/lilac.git
+          && git clone https://github.com/calcit-lang/stir-template.git --branch 0.0.4
 
       - run: cr -1 --emit-ir
