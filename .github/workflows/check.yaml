@@ -32,5 +32,6 @@ jobs:
         run: >
           mkdir -p ~/.config/calcit/modules/ && cd ~/.config/calcit/modules/
           && git clone https://github.com/calcit-lang/calcit-http.git
+          && git clone https://github.com/calcit-lang/calcit-json.git
 
       - run: cr -1 --emit-ir
