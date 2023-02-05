@@ -27,16 +27,16 @@
               "\"/html" $ {} (:status :ok) (:code 200)
                 :headers $ {} (:content-type "\"text/html")
                 :body $ make-page
-                  stir-html $ div
-                    {} $ :style
-                      {} $ :font-family ui/font-normal
-                    h1
-                      {} $ :style
-                        {} $ :color :red
-                      , "\"A demo page"
                   {}
                     :title $ {} (:innerHTML "\"Calcit HTTP Demo")
                     :styles $ [] "\"https://cdn.tiye.me/favored-fonts/main-fonts.css"
+                    :content $ div
+                      {} $ :style
+                        {} $ :font-family ui/font-normal
+                      h1
+                        {} $ :style
+                          {} $ :color :red
+                        , "\"A demo page"
               "\"/json" $ {} (:status :ok) (:code 200)
                 :headers $ {} (:content-type "\"application/json")
                 :body $ json/stringify
@@ -47,8 +47,6 @@
       :ns $ quote
         ns app.main $ :require
           http.core :refer $ serve-http!
-          stir-template.core :refer $ stir-html
-          stir-template.alias :refer $ div h1
-          stir-template.shell-page :refer $ make-page
+          stir-template.alias :refer $ make-page div h1
           stir-template.ui :as ui
           json.core :as json
