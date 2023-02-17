@@ -17,7 +17,8 @@
         |mid-call $ quote
           defn mid-call () $ println "\"Calling internal function"
         |on-request $ quote
-          defn on-request (req) (; println "\"Handling request:" req)
+          defn on-request (req)
+            println "\"Handling request:" $ :body req
             println $ :url req
             ; mid-call
             case-default (:path req)
@@ -40,8 +41,19 @@
               "\"/json" $ {} (:status :ok) (:code 200)
                 :headers $ {} (:content-type "\"application/json")
                 :body $ json/stringify
-                  {} $ :message "\"a piece of json"
+                  {} (:message "\"a piece of json") (:status false)
                   , true
+              "\"/post-json" $ let
+                  data $ if
+                    some? $ :body req
+                    json/parse $ :body req
+                    , nil
+                println "\"POST data:" data
+                {} (:status :ok) (:code 200)
+                  :headers $ {} (:content-type "\"application/json")
+                  :body $ json/stringify
+                    {} (:message "\"another piece of json") (:status false) (:sent-data data)
+                    , true
         |reload! $ quote
           defn reload! () $ println "\"Reload"
       :ns $ quote

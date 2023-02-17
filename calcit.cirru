@@ -64,10 +64,12 @@
                   |T $ {} (:at 1635234356153) (:by |u0) (:text |req) (:type :leaf)
               |s $ {} (:at 1635234372099) (:by |u0) (:type :expr)
                 :data $ {}
-                  |L $ {} (:at 1649937276422) (:by |u0) (:text |;) (:type :leaf)
                   |j $ {} (:at 1635234372099) (:by |u0) (:text |println) (:type :leaf)
                   |r $ {} (:at 1635234372099) (:by |u0) (:text "|\"Handling request:") (:type :leaf)
-                  |v $ {} (:at 1635234372099) (:by |u0) (:text |req) (:type :leaf)
+                  |v $ {} (:at 1676190480721) (:by |u0) (:type :expr)
+                    :data $ {}
+                      |D $ {} (:at 1676190485304) (:by |u0) (:text |:body) (:type :leaf)
+                      |T $ {} (:at 1635234372099) (:by |u0) (:text |req) (:type :leaf)
               |sT $ {} (:at 1635234439960) (:by |u0) (:type :expr)
                 :data $ {}
                   |T $ {} (:at 1635234441166) (:by |u0) (:text |println) (:type :leaf)
@@ -236,8 +238,89 @@
                                       |b $ {} (:at 1675491837824) (:by |u0) (:type :expr)
                                         :data $ {}
                                           |T $ {} (:at 1675491839769) (:by |u0) (:text |:message) (:type :leaf)
-                                          |b $ {} (:at 1675491844490) (:by |u0) (:text "|\"a piece of json") (:type :leaf)
+                                          |b $ {} (:at 1676242275662) (:by |u0) (:text "|\"a piece of json") (:type :leaf)
+                                      |h $ {} (:at 1676190159952) (:by |u0) (:type :expr)
+                                        :data $ {}
+                                          |T $ {} (:at 1676190165468) (:by |u0) (:text |:status) (:type :leaf)
+                                          |b $ {} (:at 1676190167734) (:by |u0) (:text |false) (:type :leaf)
                                   |b $ {} (:at 1675491836188) (:by |u0) (:text |true) (:type :leaf)
+                  |l $ {} (:at 1676241775972) (:by |u0) (:type :expr)
+                    :data $ {}
+                      |T $ {} (:at 1676241779331) (:by |u0) (:text "|\"/post-json") (:type :leaf)
+                      |b $ {} (:at 1676241784175) (:by |u0) (:type :expr)
+                        :data $ {}
+                          |D $ {} (:at 1676242115190) (:by |u0) (:text |let) (:type :leaf)
+                          |H $ {} (:at 1676242117095) (:by |u0) (:type :expr)
+                            :data $ {}
+                              |b $ {} (:at 1676242130847) (:by |u0) (:type :expr)
+                                :data $ {}
+                                  |T $ {} (:at 1676242131302) (:by |u0) (:text |data) (:type :leaf)
+                                  |b $ {} (:at 1676242131644) (:by |u0) (:type :expr)
+                                    :data $ {}
+                                      |T $ {} (:at 1676242131857) (:by |u0) (:text |if) (:type :leaf)
+                                      |b $ {} (:at 1676242132323) (:by |u0) (:type :expr)
+                                        :data $ {}
+                                          |T $ {} (:at 1676242134153) (:by |u0) (:text |some?) (:type :leaf)
+                                          |b $ {} (:at 1676242145565) (:by |u0) (:type :expr)
+                                            :data $ {}
+                                              |T $ {} (:at 1676242145565) (:by |u0) (:text |:body) (:type :leaf)
+                                              |b $ {} (:at 1676242145565) (:by |u0) (:text |req) (:type :leaf)
+                                      |h $ {} (:at 1676242140155) (:by |u0) (:type :expr)
+                                        :data $ {}
+                                          |T $ {} (:at 1676242140155) (:by |u0) (:text |json/parse) (:type :leaf)
+                                          |b $ {} (:at 1676242140155) (:by |u0) (:type :expr)
+                                            :data $ {}
+                                              |T $ {} (:at 1676242140155) (:by |u0) (:text |:body) (:type :leaf)
+                                              |b $ {} (:at 1676242140155) (:by |u0) (:text |req) (:type :leaf)
+                                      |l $ {} (:at 1676242150185) (:by |u0) (:text |nil) (:type :leaf)
+                          |L $ {} (:at 1676241788507) (:by |u0) (:type :expr)
+                            :data $ {}
+                              |T $ {} (:at 1676241790846) (:by |u0) (:text |println) (:type :leaf)
+                              |X $ {} (:at 1676242162462) (:by |u0) (:text "|\"POST data:") (:type :leaf)
+                              |b $ {} (:at 1676242157468) (:by |u0) (:text |data) (:type :leaf)
+                          |T $ {} (:at 1676241783779) (:by |u0) (:type :expr)
+                            :data $ {}
+                              |T $ {} (:at 1676241783779) (:by |u0) (:text |{}) (:type :leaf)
+                              |b $ {} (:at 1676241783779) (:by |u0) (:type :expr)
+                                :data $ {}
+                                  |T $ {} (:at 1676241783779) (:by |u0) (:text |:status) (:type :leaf)
+                                  |b $ {} (:at 1676241783779) (:by |u0) (:text |:ok) (:type :leaf)
+                              |h $ {} (:at 1676241783779) (:by |u0) (:type :expr)
+                                :data $ {}
+                                  |T $ {} (:at 1676241783779) (:by |u0) (:text |:code) (:type :leaf)
+                                  |b $ {} (:at 1676241783779) (:by |u0) (:text |200) (:type :leaf)
+                              |l $ {} (:at 1676241783779) (:by |u0) (:type :expr)
+                                :data $ {}
+                                  |T $ {} (:at 1676241783779) (:by |u0) (:text |:headers) (:type :leaf)
+                                  |b $ {} (:at 1676241783779) (:by |u0) (:type :expr)
+                                    :data $ {}
+                                      |T $ {} (:at 1676241783779) (:by |u0) (:text |{}) (:type :leaf)
+                                      |b $ {} (:at 1676241783779) (:by |u0) (:type :expr)
+                                        :data $ {}
+                                          |T $ {} (:at 1676241783779) (:by |u0) (:text |:content-type) (:type :leaf)
+                                          |b $ {} (:at 1676241783779) (:by |u0) (:text "|\"application/json") (:type :leaf)
+                              |o $ {} (:at 1676241783779) (:by |u0) (:type :expr)
+                                :data $ {}
+                                  |T $ {} (:at 1676241783779) (:by |u0) (:text |:body) (:type :leaf)
+                                  |b $ {} (:at 1676241783779) (:by |u0) (:type :expr)
+                                    :data $ {}
+                                      |T $ {} (:at 1676241783779) (:by |u0) (:text |json/stringify) (:type :leaf)
+                                      |b $ {} (:at 1676241783779) (:by |u0) (:type :expr)
+                                        :data $ {}
+                                          |T $ {} (:at 1676241783779) (:by |u0) (:text |{}) (:type :leaf)
+                                          |b $ {} (:at 1676241783779) (:by |u0) (:type :expr)
+                                            :data $ {}
+                                              |T $ {} (:at 1676241783779) (:by |u0) (:text |:message) (:type :leaf)
+                                              |b $ {} (:at 1676242280857) (:by |u0) (:text "|\"another piece of json") (:type :leaf)
+                                          |h $ {} (:at 1676241783779) (:by |u0) (:type :expr)
+                                            :data $ {}
+                                              |T $ {} (:at 1676241783779) (:by |u0) (:text |:status) (:type :leaf)
+                                              |b $ {} (:at 1676241783779) (:by |u0) (:text |false) (:type :leaf)
+                                          |l $ {} (:at 1676242180438) (:by |u0) (:type :expr)
+                                            :data $ {}
+                                              |T $ {} (:at 1676242183143) (:by |u0) (:text |:sent-data) (:type :leaf)
+                                              |b $ {} (:at 1676242186292) (:by |u0) (:text |data) (:type :leaf)
+                                      |h $ {} (:at 1676241783779) (:by |u0) (:text |true) (:type :leaf)
           |reload! $ {} (:at 1633149998862) (:by |u0) (:type :expr)
             :data $ {}
               |T $ {} (:at 1633149998862) (:by |u0) (:text |defn) (:type :leaf)
