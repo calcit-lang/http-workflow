@@ -5,7 +5,7 @@ based on [calcit-http](https://github.com/calcit-lang/calcit-http).
 ### Usages
 
 ```bash
-cr -1
+cr compact.cirru ir
 ```
 
 ### Workflow

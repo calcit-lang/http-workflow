@@ -9,26 +9,18 @@ name: Test
 jobs:
   build_and_test:
     name: Test
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - uses: supplypike/setup-bin@v3
-        with:
-          uri: 'https://github.com/calcit-lang/calcit/releases/download/0.8.9/cr'
-          name: 'cr'
-          version: '0.8.9'
+      - uses: calcit-lang/setup-cr@0.0.8
 
-      - uses: supplypike/setup-bin@v3
-        with:
-          uri: 'https://github.com/calcit-lang/calcit/releases/download/0.8.9/caps'
-          name: 'caps'
-          version: '0.8.9'
+      - name: "prepare modules"
+        run: >
+          mkdir -p ~/.config/calcit/modules/ && cd ~/.config/calcit/modules/
+          && git clone https://github.com/calcit-lang/calcit-http.git
+          && git clone https://github.com/calcit-lang/calcit-json.git
+          && git clone https://github.com/calcit-lang/lilac.git
+          && git clone https://github.com/calcit-lang/stir-template.git --branch 0.0.8
 
-      - uses: dtolnay/rust-toolchain@stable
-        with:
-          toolchain: stable
-
-      - uses: Swatinem/rust-cache@v2
-
-      - run: caps --ci && cr -1 --emit-ir
+      - run: cr compact.cirru ir
