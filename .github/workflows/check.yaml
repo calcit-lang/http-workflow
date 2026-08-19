@@ -11,16 +11,19 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: calcit-lang/setup-cr@0.0.8
+      - uses: calcit-lang/setup-cr@0.0.9
 
-      - name: "prepare modules"
-        run: >
-          mkdir -p ~/.config/calcit/modules/ && cd ~/.config/calcit/modules/
-          && git clone https://github.com/calcit-lang/calcit-http.git
-          && git clone https://github.com/calcit-lang/calcit-json.git
-          && git clone https://github.com/calcit-lang/lilac.git
-          && git clone https://github.com/calcit-lang/stir-template.git --branch 0.0.8
+      - name: "install modules"
+        run: caps --ci
 
-      - run: cr compact.cirru ir
+      - name: "validate snapshot and entries"
+        run: |
+          cr calcit.cirru edit format
+          git diff --exit-code -- calcit.cirru
+          cr calcit.cirru --check-only
+          cr calcit.cirru --entry server --check-only
+          cr calcit.cirru analyze check-types --summary-only --format json
+          cr calcit.cirru analyze weak-types --only schema-dynamic,code-dynamic --intent unresolved --summary-only --format json
+          cr calcit.cirru analyze deprecated --summary-only --format json
