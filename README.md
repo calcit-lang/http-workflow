@@ -5,7 +5,7 @@ based on [calcit-http](https://github.com/calcit-lang/calcit-http).
 ### Usages
 
 ```bash
-cr calcit.cirru ir
+calcit calcit.cirru ir
 ```
 
 ### Workflow
