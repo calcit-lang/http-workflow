@@ -1,4 +1,4 @@
 # 2026-08-23 Fix Stir-template dependency version
 
-- Keep the Calcit 0.13.32 workflow on the current stable Stir-template release.
-- Bump the workflow module version for the dependency correction.
+- Pin `calcit-lang/stir-template` to 0.0.11, the current stable release.
+- Bump http-workflow from 0.0.8 to 0.0.9 for the dependency correction.
