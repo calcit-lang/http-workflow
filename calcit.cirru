@@ -33,7 +33,6 @@
           :code $ quote
             defn on-request (req)
               println "|Handling request:" $ get req :body
-              println $ get req :url
               ; mid-call
               case-default
                 option:unwrap-or (get req :path) |
