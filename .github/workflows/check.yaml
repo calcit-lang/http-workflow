@@ -6,17 +6,22 @@ on:
 
 name: Test
 
+permissions:
+  contents: read
+
 jobs:
   build_and_test:
     name: Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
 
-      - uses: calcit-lang/setup-calcit@6a2e53ae41e4f0d5856a424b9ed4470d90ea6876
+      - uses: calcit-lang/setup-calcit@704b3f5cd6f9ce3bd1e0c926dbdd1d181adb8180 # v1
 
       - name: "install modules"
-        run: caps --ci
+        run: caps --strict --ci
 
       - name: "validate snapshot and entries"
         run: |

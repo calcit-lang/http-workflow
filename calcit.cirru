@@ -10,26 +10,26 @@
       :modules $ [] |calcit-http/ |calcit-json/ |stir-template/ |lilac/
       :type-slots $ {}
   :files $ {}
-    |app.main $ %{} 'FileEntry
+    'app.main $ %{} 'FileEntry
       :defs $ {}
-        |demo-server! $ %{} 'CodeEntry (:doc |)
+        'demo-server! $ %{} 'CodeEntry (:doc |)
           :code $ quote
             defn demo-server! () $ serve-http!
               {} $ :port 4000
               fn (req) (on-request req)
           :examples $ []
           :schema $ :: 'Dynamic
-        |main! $ %{} 'CodeEntry (:doc |)
+        'main! $ %{} 'CodeEntry (:doc |)
           :code $ quote
             defn main! () $ demo-server!
           :examples $ []
           :schema $ :: 'Dynamic
-        |mid-call $ %{} 'CodeEntry (:doc |)
+        'mid-call $ %{} 'CodeEntry (:doc |)
           :code $ quote
             defn mid-call () $ println "|Calling internal function"
           :examples $ []
           :schema $ :: 'Dynamic
-        |on-request $ %{} 'CodeEntry (:doc |)
+        'on-request $ %{} 'CodeEntry (:doc |)
           :code $ quote
             defn on-request (req)
               println "|Handling request:" $ get req :body
@@ -70,7 +70,7 @@
                       %some true
           :examples $ []
           :schema $ :: 'Dynamic
-        |reload! $ %{} 'CodeEntry (:doc |)
+        'reload! $ %{} 'CodeEntry (:doc |)
           :code $ quote
             defn reload! () $ println |Reload
           :examples $ []

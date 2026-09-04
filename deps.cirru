@@ -1,7 +1,7 @@
 
-{} (:calcit-version |0.13.32)
+{} (:calcit-version |0.13.77)
   :version |0.0.9
-  :dependencies $ {} (|calcit-lang/calcit-http |0.3.5)
-    |calcit-lang/calcit-json |0.0.11
-    |calcit-lang/lilac |0.5.4
+  :dependencies $ {} (|calcit-lang/calcit-http |0.3.14)
+    |calcit-lang/calcit-json |0.0.17
+    |calcit-lang/lilac |0.5.5
     |calcit-lang/stir-template |0.0.11
