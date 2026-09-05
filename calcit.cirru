@@ -5,7 +5,7 @@
       :feature-policy $ {}
       :modules $ [] |calcit-http/ |calcit-json/ |stir-template/ |lilac/
       :type-slots $ {}
-    :server $ {} (:description |) (:init-fn 'http.test/demo-server!) (:mode :native) (:reload-fn 'http.test/reload!)
+    :server $ {} (:description |) (:init-fn 'app.main/demo-server!) (:mode :native) (:reload-fn 'app.main/reload!)
       :feature-policy $ {}
       :modules $ [] |calcit-http/ |calcit-json/ |stir-template/ |lilac/
       :type-slots $ {}
@@ -42,8 +42,7 @@
                 |/html $ {} (:status :ok) (:code 200)
                   :headers $ {} (:content-type |text/html)
                   :body $ make-page
-                    {}
-                      :title $ {} (:innerHTML "|Calcit HTTP Demo")
+                    {} (:title "|Calcit HTTP Demo")
                       :styles $ [] |https://cdn.tiye.me/favored-fonts/main-fonts.css
                       :content $ div
                         {} $ :style
@@ -56,7 +55,7 @@
                   :headers $ {} (:content-type |application/json)
                   :body $ json/stringify
                     {} (:message "|a piece of json") (:status false)
-                    %some true
+                    , true
                 |/post-json $ let
                     body $ get req :body
                     data $ if (option:some? body)
@@ -67,7 +66,7 @@
                     :headers $ {} (:content-type |application/json)
                     :body $ json/stringify
                       {} (:message "|another piece of json") (:status false) (:sent-data data)
-                      %some true
+                      , true
           :examples $ []
           :schema $ :: 'Dynamic
         'reload! $ %{} 'CodeEntry (:doc |)
