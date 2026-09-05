@@ -3,33 +3,33 @@
   :entries $ {}
     :default $ {} (:description |) (:init-fn 'app.main/main!) (:mode :native) (:reload-fn 'app.main/reload!)
       :feature-policy $ {}
-      :modules $ [] |calcit-http/ |calcit-json/ |stir-template/ |lilac/
+      :modules $ [] |calcit-http/ |calcit-json/ |stir-template/
       :type-slots $ {}
-    :server $ {} (:description |) (:init-fn 'http.test/demo-server!) (:mode :native) (:reload-fn 'http.test/reload!)
+    :server $ {} (:description |) (:init-fn 'app.main/demo-server!) (:mode :native) (:reload-fn 'app.main/reload!)
       :feature-policy $ {}
-      :modules $ [] |calcit-http/ |calcit-json/ |stir-template/ |lilac/
+      :modules $ [] |calcit-http/ |calcit-json/ |stir-template/
       :type-slots $ {}
   :files $ {}
-    |app.main $ %{} 'FileEntry
+    'app.main $ %{} 'FileEntry
       :defs $ {}
-        |demo-server! $ %{} 'CodeEntry (:doc |)
+        'demo-server! $ %{} 'CodeEntry (:doc |)
           :code $ quote
             defn demo-server! () $ serve-http!
               {} $ :port 4000
               fn (req) (on-request req)
           :examples $ []
           :schema $ :: 'Dynamic
-        |main! $ %{} 'CodeEntry (:doc |)
+        'main! $ %{} 'CodeEntry (:doc |)
           :code $ quote
             defn main! () $ demo-server!
           :examples $ []
           :schema $ :: 'Dynamic
-        |mid-call $ %{} 'CodeEntry (:doc |)
+        'mid-call $ %{} 'CodeEntry (:doc |)
           :code $ quote
             defn mid-call () $ println "|Calling internal function"
           :examples $ []
           :schema $ :: 'Dynamic
-        |on-request $ %{} 'CodeEntry (:doc |)
+        'on-request $ %{} 'CodeEntry (:doc |)
           :code $ quote
             defn on-request (req)
               println "|Handling request:" $ get req :body
@@ -42,8 +42,7 @@
                 |/html $ {} (:status :ok) (:code 200)
                   :headers $ {} (:content-type |text/html)
                   :body $ make-page
-                    {}
-                      :title $ {} (:innerHTML "|Calcit HTTP Demo")
+                    {} (:title "|Calcit HTTP Demo")
                       :styles $ [] |https://cdn.tiye.me/favored-fonts/main-fonts.css
                       :content $ div
                         {} $ :style
@@ -56,7 +55,7 @@
                   :headers $ {} (:content-type |application/json)
                   :body $ json/stringify
                     {} (:message "|a piece of json") (:status false)
-                    %some true
+                    , true
                 |/post-json $ let
                     body $ get req :body
                     data $ if (option:some? body)
@@ -67,10 +66,10 @@
                     :headers $ {} (:content-type |application/json)
                     :body $ json/stringify
                       {} (:message "|another piece of json") (:status false) (:sent-data data)
-                      %some true
+                      , true
           :examples $ []
           :schema $ :: 'Dynamic
-        |reload! $ %{} 'CodeEntry (:doc |)
+        'reload! $ %{} 'CodeEntry (:doc |)
           :code $ quote
             defn reload! () $ println |Reload
           :examples $ []
