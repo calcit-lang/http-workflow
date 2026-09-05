@@ -3,11 +3,11 @@
   :entries $ {}
     :default $ {} (:description |) (:init-fn 'app.main/main!) (:mode :native) (:reload-fn 'app.main/reload!)
       :feature-policy $ {}
-      :modules $ [] |calcit-http/ |calcit-json/ |stir-template/ |lilac/
+      :modules $ [] |calcit-http/ |calcit-json/ |stir-template/
       :type-slots $ {}
     :server $ {} (:description |) (:init-fn 'app.main/demo-server!) (:mode :native) (:reload-fn 'app.main/reload!)
       :feature-policy $ {}
-      :modules $ [] |calcit-http/ |calcit-json/ |stir-template/ |lilac/
+      :modules $ [] |calcit-http/ |calcit-json/ |stir-template/
       :type-slots $ {}
   :files $ {}
     'app.main $ %{} 'FileEntry
