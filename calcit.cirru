@@ -3,15 +3,11 @@
   :about "|Machine-generated snapshot. Do not edit directly — changes will be overwritten. Use `calcit query` to inspect and `calcit edit`/`calcit tree` to modify. Run `calcit docs agents --contract` before mutations; use `--full` for first orientation or changed contract digest. Manual edits must follow format and schema conventions, then run `calcit edit format`."
   :package |app
   :entries $ {}
-    :default $ {} (:description |) (:init-fn 'app.main/main!) (:mode :native)
-      :reload-fn 'app.main/reload!
+    :default $ {} (:description |) (:init-fn 'app.main/main!) (:mode :native) (:reload-fn 'app.main/reload!)
       :feature-policy $ {}
       :modules $ [] |calcit-http/ |calcit-json/ |stir-template/
       :type-slots $ {}
-    :server $ {} (:description |)
-      :init-fn 'app.main/demo-server!
-      :mode :native
-      :reload-fn 'app.main/reload!
+    :server $ {} (:description |) (:init-fn 'app.main/demo-server!) (:mode :native) (:reload-fn 'app.main/reload!)
       :feature-policy $ {}
       :modules $ [] |calcit-http/ |calcit-json/ |stir-template/
       :type-slots $ {}
@@ -24,16 +20,18 @@
               {} $ :port 4000
               fn (req) (on-request req)
           :examples $ []
-          :schema $ :: 'Dynamic
+          :schema $ :: 'Fn $ {} (:return 'FfiTask)
+            :args $ []
         'main! $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn main! () (demo-server!)
           :examples $ []
-          :schema $ :: 'Dynamic
+          :schema $ :: 'Fn $ {} (:return 'FfiTask)
+            :args $ []
         'mid-call $ %{} 'CodeEntry (:doc |)
-          :code $ quote $ defn mid-call ()
-            println "|Calling internal function"
+          :code $ quote $ defn mid-call () (println "|Calling internal function")
           :examples $ []
-          :schema $ :: 'Dynamic
+          :schema $ :: 'Fn $ {} (:return 'Unit)
+            :args $ []
         'on-request $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn on-request (req)
             println "|Handling request:" $ get req :body
@@ -45,8 +43,7 @@
                 :body $ format-cirru-edn req
               |/html $ {} (:status :ok) (:code 200)
                 :headers $ {} $ :content-type |text/html
-                :body $ make-page $ {}
-                  :title "|Calcit HTTP Demo"
+                :body $ make-page $ {} (:title "|Calcit HTTP Demo")
                   :styles $ [] |https://cdn.tiye.me/favored-fonts/main-fonts.css
                   :content $ div
                     {} $ :style $ {} (:font-family ui/font-normal)
@@ -67,17 +64,16 @@
                 {} (:status :ok) (:code 200)
                   :headers $ {} $ :content-type |application/json
                   :body $ json/stringify
-                    {}
-                      :message "|another piece of json"
-                      :status false
-                      :sent-data data
+                    {} (:message "|another piece of json") (:status false) (:sent-data data)
                     , true
           :examples $ []
-          :schema $ :: 'Dynamic
+          :schema $ :: 'Fn $ {} (:return 'Dynamic)
+            :args $ [] 'Dynamic
         'reload! $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn reload! () (println |Reload)
           :examples $ []
-          :schema $ :: 'Dynamic
+          :schema $ :: 'Fn $ {} (:return 'Unit)
+            :args $ []
       :ns $ %{} 'NsEntry (:doc |)
         :code $ quote $ ns app.main
           :require
