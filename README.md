@@ -10,7 +10,7 @@ caps verify --toolchain
 calcit calcit.cirru --entry server
 ```
 
-The project targets Calcit 0.15.3. Before changing the Snapshot, read the
+The project targets Calcit 0.17.1. Before changing the Snapshot, read the
 current migration guidance with `calcit docs read upgrade`, then preview the
 stable syntax rules with
 `calcit fix --preset surface-latest-v2 --format edn`.
