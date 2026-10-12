@@ -3,13 +3,13 @@
   :about "|Machine-generated snapshot. Do not edit directly — changes will be overwritten. Use `calcit query` to inspect and `calcit edit`/`calcit tree` to modify. Run `calcit docs agents --contract` before mutations; use `--full` for first orientation or changed contract digest. Manual edits must follow format and schema conventions, then run `calcit edit format`."
   :package |app
   :entries $ {}
-    :default $ {} (:description |) (:init-fn 'app.main/main!) (:mode :native) (:reload-fn 'app.main/reload!)
+    :default $ {} (:description |) (:init-fn 'app.main/main!) (:mode :native) (:reload-fn 'app.main/reload!) (:target :native)
       :feature-policy $ {}
-      :modules $ [] |calcit-http/ |calcit-json/ |stir-template/
+      :modules $ [] |calcit-http/ |stir-template/
       :type-slots $ {}
-    :server $ {} (:description |) (:init-fn 'app.main/demo-server!) (:mode :native) (:reload-fn 'app.main/reload!)
+    :server $ {} (:description |) (:init-fn 'app.main/demo-server!) (:mode :native) (:reload-fn 'app.main/reload!) (:target :native)
       :feature-policy $ {}
-      :modules $ [] |calcit-http/ |calcit-json/ |stir-template/
+      :modules $ [] |calcit-http/ |stir-template/
       :type-slots $ {}
   :files $ {} $ 'app.main
     %{} 'FileEntry
@@ -36,11 +36,10 @@
           :code $ quote $ defn on-request (req)
             println "|Handling request:" $ get req :body
             ; mid-call
-            case-default
-              option:unwrap-or (get req :path) |
-              {} (:status :ok) (:code 200)
-                :headers $ {} $ :content-type |text/json
-                :body $ format-cirru-edn req
+            match
+              .unwrap-or
+                decode-map-as (get req :path) (:: 'Option 'String)
+                , |
               |/html $ {} (:status :ok) (:code 200)
                 :headers $ {} $ :content-type |text/html
                 :body $ make-page $ {} (:title "|Calcit HTTP Demo")
@@ -52,24 +51,23 @@
                       , "|A demo page"
               |/json $ {} (:status :ok) (:code 200)
                 :headers $ {} $ :content-type |application/json
-                :body $ json/stringify
-                  {} (:message "|a piece of json") (:status false)
-                  , true
+                :body $ json-pretty $ {} (:message "|a piece of json") (:status false)
               |/post-json $ let
-                  body $ get req :body
-                  data $ if (option:some? body)
-                    json/parse $ option:unwrap body
+                  body $ decode-map-as (get req :body) (:: 'Option 'String)
+                  data $ if (.some? body)
+                    json-parse $ .unwrap body
                     , nil
                 println "|POST data:" data
                 {} (:status :ok) (:code 200)
                   :headers $ {} $ :content-type |application/json
-                  :body $ json/stringify
-                    {} (:message "|another piece of json") (:status false) (:sent-data data)
-                    , true
+                  :body $ json-pretty $ {} (:message "|another piece of json") (:status false) (:sent-data data)
+              _ $ {} (:status :ok) (:code 200)
+                :headers $ {} $ :content-type |text/json
+                :body $ format-cirru-edn req
           :examples $ []
-          :schema $ :: 'Fn $ {} (:return 'Dynamic)
-            :args $ [] 'Dynamic
-            :features $ #{} :js-ffi
+          :schema $ :: 'Fn $ {}
+            :args $ [] $ :: 'Map 'Tag 'Dynamic
+            :return $ :: 'Map 'Tag 'Dynamic
         'reload! $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn reload! () (println |Reload)
           :examples $ []
@@ -81,4 +79,3 @@
             http.core :refer $ serve-http!
             stir-template.alias :refer $ make-page div h1
             stir-template.ui :as ui
-            json.core :as json
