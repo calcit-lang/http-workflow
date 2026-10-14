@@ -10,7 +10,7 @@ caps verify --toolchain
 calcit calcit.cirru --entry server
 ```
 
-项目使用正式 Calcit 0.29.1、Calcit HTTP 0.3.22 和 Stir Template 0.0.17。
+项目使用正式 Calcit 0.29.3、Calcit HTTP 0.3.22 和 Stir Template 0.0.18。
 Stir 的普通 HTML 标签返回明确的元素 Map，已有 JSON、HTML 和 POST smoke 保留。
 Read `calcit docs agents --contract`
 before modifying the Snapshot, and use `calcit tree` / `calcit edit` for changes.

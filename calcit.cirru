@@ -28,7 +28,7 @@
           :schema $ :: 'Fn $ {} (:return 'FfiTask)
             :args $ []
         'mid-call $ %{} 'CodeEntry (:doc |)
-          :code $ quote $ defn mid-call () (println "|Calling internal function")
+          :code $ quote $ defn mid-call () (println "|Calling internal function") &unit
           :examples $ []
           :schema $ :: 'Fn $ {} (:return 'Unit)
             :args $ []
@@ -69,7 +69,7 @@
             :args $ [] $ :: 'Map 'Tag 'Dynamic
             :return $ :: 'Map 'Tag 'Dynamic
         'reload! $ %{} 'CodeEntry (:doc |)
-          :code $ quote $ defn reload! () (println |Reload)
+          :code $ quote $ defn reload! () (println |Reload) &unit
           :examples $ []
           :schema $ :: 'Fn $ {} (:return 'Unit)
             :args $ []
