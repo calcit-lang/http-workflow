@@ -1,5 +1,5 @@
 
-{} (:calcit-version |0.30.0)
+{} (:calcit-version |0.30.1-alpha.5)
   :version |0.0.12
   :dependencies $ {} (|calcit-lang/calcit-http |0.3.23)
     |calcit-lang/stir-template |0.0.18
