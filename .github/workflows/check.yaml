@@ -33,10 +33,9 @@ jobs:
         run: |
           calcit calcit.cirru edit format
           git diff --exit-code -- calcit.cirru
-          calcit calcit.cirru --check-only
+          calcit calcit.cirru --check-only --all-defs
           calcit calcit.cirru --entry server --check-only
-          calcit calcit.cirru fix --workflow strict --verify --format json
-          calcit --check-only --ns 'app.$meta' --ns app.main --summary-only
+          calcit calcit.cirru fix --workflow strict --verify --format json | jq -e 'if .data.workflow.status == "passed" and .diagnostics == [] then true else ., false end'
           calcit analyze weak-types --only deprecated-call --summary-only --format json | jq -e '.data.summary.calls == 0'
 
       - name: "smoke test HTTP runtime"
@@ -71,6 +70,6 @@ jobs:
           grep --fixed-strings '<title>Calcit HTTP Demo</title>' "$RUNNER_TEMP/http-workflow-html.txt"
           curl --fail --silent --connect-timeout 2 --max-time 5 --request POST \
             --header 'content-type: application/json' \
-            --data '{"hello":"calcit"}' \
+            --data '{"hello":"calcit","text":"中文🌱","flag":false,"count":0,"value":null}' \
             http://127.0.0.1:4000/post-json > "$RUNNER_TEMP/http-workflow-post-json.txt"
-          grep --fixed-strings '"hello": "calcit"' "$RUNNER_TEMP/http-workflow-post-json.txt"
+          jq -e '.["sent-data"] == {"hello":"calcit","text":"中文🌱","flag":false,"count":0,"value":null}' "$RUNNER_TEMP/http-workflow-post-json.txt"
