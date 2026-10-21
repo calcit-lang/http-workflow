@@ -36,6 +36,14 @@ server example has no frontend artifact and needs no COS upload configuration.
 本轮不修改 Snapshot、原 handler、JSON/HTML/POST 路由或服务监听配置；
 同步正式依赖图，并以全定义检查替代重复的普通入口/逐 namespace 检查，保留 server
 入口和原三条 HTTP smoke。完整 strict 明确要求 passed 与空 diagnostics，不增加脚本。
+原 POST smoke 仍只发送一次请求，用同一断言核对 hello、Unicode、false、0 和 null
+完整往返；这覆盖旧 JSON 模块转为 core JSON 后的实际数据合同，不新增测试组。
+
+从最近正式 tag `0.0.10` 升级时，还会包含 main 上已合入但未发版的迁移：
+退役 `calcit-json` 改用 core `json-parse` / `json-pretty`，path/body 读取检查为
+`Option<String>`，handler 的输入输出从整体 Dynamic 收窄为 `Map<Tag,Dynamic>`，
+并使用当前 match / Option 方法。仅本 PR 相对 main 的 Snapshot 未变，不把它
+扩大为相对旧 tag 没有源码变化。两入口继续 native，旧接口恢复需成套回退依赖。
 
 以下为历史基线，不冒充本候选正式配对已通过：完整 strict workflow 在
 0.30.0 和 0.30.1-alpha.5 下通过，不增加强转、兼容层或质量预算。

@@ -70,6 +70,6 @@ jobs:
           grep --fixed-strings '<title>Calcit HTTP Demo</title>' "$RUNNER_TEMP/http-workflow-html.txt"
           curl --fail --silent --connect-timeout 2 --max-time 5 --request POST \
             --header 'content-type: application/json' \
-            --data '{"hello":"calcit"}' \
+            --data '{"hello":"calcit","text":"中文🌱","flag":false,"count":0,"value":null}' \
             http://127.0.0.1:4000/post-json > "$RUNNER_TEMP/http-workflow-post-json.txt"
-          grep --fixed-strings '"hello": "calcit"' "$RUNNER_TEMP/http-workflow-post-json.txt"
+          jq -e '.["sent-data"] == {"hello":"calcit","text":"中文🌱","flag":false,"count":0,"value":null}' "$RUNNER_TEMP/http-workflow-post-json.txt"
