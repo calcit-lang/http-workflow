@@ -3,7 +3,7 @@
 based on [calcit-http](https://github.com/calcit-lang/calcit-http).
 
 使用者注意：候选 `0.0.13` 配对正式 Calcit **0.30.1**、HTTP **0.3.24** 和
-Stir Template **0.0.19**。同步安装完整精确依赖图后重启原生进程，保留 Caps strict；
+Stir Template **0.0.20**。同步安装完整精确依赖图后重启原生进程，保留 Caps strict；
 候选版本号不代表已经发布。此项目仅为 native HTTP 开发示例，不部署任何服务。
 
 示例默认监听配置保持不变，不能当作已认证的生产接口；本地试用应显式绑定回环，
@@ -18,7 +18,10 @@ caps verify --toolchain
 calcit calcit.cirru --entry server
 ```
 
-项目候选使用正式 Calcit 0.30.1、HTTP 0.3.24 和 Stir Template 0.0.19。
+项目候选使用正式 Calcit 0.30.1、HTTP 0.3.24 和 Stir Template 0.0.20。
+本轮仅升级已发布的 Stir Template：包含九处旧调用迁移、真实回调合同及 StructDef
+元数据修正；模板公开调用参数/返回和 HTML escaping 保留。本项目 Snapshot、HTTP
+FFI/ABI、路由、原 JSON/HTML/POST smoke 不变，不部署或重启任何服务。
 Stir 的普通 HTML 标签返回明确的元素 Map，已有 JSON、HTML 和 POST smoke 保留。
 Read `calcit docs agents --contract`
 before modifying the Snapshot, and use `calcit tree` / `calcit edit` for changes.
