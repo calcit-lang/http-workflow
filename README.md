@@ -2,8 +2,8 @@
 
 based on [calcit-http](https://github.com/calcit-lang/calcit-http).
 
-使用者注意：候选 `0.0.13` 配对正式 Calcit **0.30.1**、HTTP **0.3.24** 和
-Stir Template **0.0.20**。同步安装完整精确依赖图后重启原生进程，保留 Caps strict；
+使用者注意：候选 `0.0.13` 配对正式 Calcit **0.31.0**、HTTP **0.3.25** 和
+Stir Template **0.0.21**。同步安装完整精确依赖图后重启原生进程，保留 Caps strict；
 候选版本号不代表已经发布。此项目仅为 native HTTP 开发示例，不部署任何服务。
 
 示例默认监听配置保持不变，不能当作已认证的生产接口；本地试用应显式绑定回环，
@@ -18,11 +18,10 @@ caps verify --toolchain
 calcit calcit.cirru --entry server
 ```
 
-项目候选使用正式 Calcit 0.30.1、HTTP 0.3.24 和 Stir Template 0.0.20。
-本轮仅升级已发布的 Stir Template：包含九处旧调用迁移、真实回调合同及 StructDef
-元数据修正；模板公开调用参数/返回和 HTML escaping 保留。本项目 Snapshot、HTTP
-FFI/ABI、路由、原 JSON/HTML/POST smoke 不变，不部署或重启任何服务。
-Stir 的普通 HTML 标签返回明确的元素 Map，已有 JSON、HTML 和 POST smoke 保留。
+项目候选使用正式 Calcit 0.31.0、HTTP 0.3.25 和 Stir Template 0.0.21。
+本轮同步工具链与两个已发布依赖；本项目 Snapshot、路由与原 JSON/HTML/POST
+smoke 保持不变。Stir 的普通 HTML 标签返回元素 Map，开放 HTML 值合同保留。
+不部署或重启任何服务，所有真实 HTTP 验收仅使用隔离测试进程。
 Read `calcit docs agents --contract`
 before modifying the Snapshot, and use `calcit tree` / `calcit edit` for changes.
 Both entries use the native target and the same HTTP request handler.
@@ -53,8 +52,8 @@ server example has no frontend artifact and needs no COS upload configuration.
 本地真实请求对照在忽略的完整 Snapshot 副本中使用 loopback 临时端口；保留原 CI
 三条 smoke，不新增永久测试脚本或编译器规则。JSON、HTML 和 POST 在两版 CLI 下
 通过，POST 同时确认 Unicode、false、0 和 null 原样往返；自建服务验收后终止。
-此前本机验证使用匹配的 alpha.5；本候选正式 0.30.1 的安装、strict 和真实请求
-验收以本次 Linux CI 为准，不冒充已经验证所有平台。
+此前本机验证使用匹配的 alpha.5；历史正式 0.30.1 的安装、strict 和真实请求
+验收见此前 CI。本次 0.31.0 保留同一套 Linux smoke，不冒充已经验证所有平台。
 strict 仍记录请求/响应两个异构 Map 边界及缺失 POST body 对应的 nil；不以假类型隐藏这些合同。
 
 ### Workflow
