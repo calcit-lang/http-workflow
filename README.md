@@ -39,7 +39,7 @@ server example has no frontend artifact and needs no COS upload configuration.
 本轮不修改 handler、JSON/HTML/POST 路由或服务监听配置。保留原 CI 和类型门禁，
 不增加检查脚本、强转或质量预算。测试副本仅覆盖监听地址及端口，验收后已停止。
 
-从最近正式 tag `0.0.10` 升级时，还会包含 main 上已合入但未发版的迁移：
+历史上从正式 tag `0.0.10` 升级到 `0.0.13` 时，包含以下迁移：
 退役 `calcit-json` 改用 core `json-parse` / `json-pretty`，path/body 读取检查为
 `Option<String>`，handler 的输入输出从整体 Dynamic 收窄为 `Map<Tag,Dynamic>`，
 并使用当前 match / Option 方法。本次相对 main 只规范化类型表示，不把它
