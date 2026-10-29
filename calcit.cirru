@@ -20,18 +20,15 @@
               {} $ :port 4000
               fn (req) (on-request req)
           :examples $ []
-          :schema $ :: 'Fn $ {} (:return 'FfiTask)
-            :args $ []
+          :schema $ quote $ Fn (-> FfiTask)
         'main! $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn main! () (demo-server!)
           :examples $ []
-          :schema $ :: 'Fn $ {} (:return 'FfiTask)
-            :args $ []
+          :schema $ quote $ Fn (-> FfiTask)
         'mid-call $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn mid-call () (println "|Calling internal function") &unit
           :examples $ []
-          :schema $ :: 'Fn $ {} (:return 'Unit)
-            :args $ []
+          :schema $ quote $ Fn (-> Unit)
         'on-request $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn on-request (req)
             println "|Handling request:" $ get req :body
@@ -65,14 +62,12 @@
                 :headers $ {} $ :content-type |text/json
                 :body $ format-cirru-edn req
           :examples $ []
-          :schema $ :: 'Fn $ {}
-            :args $ [] $ :: 'Map 'Tag 'Dynamic
-            :return $ :: 'Map 'Tag 'Dynamic
+          :schema $ quote $ Fn (Map Tag Dynamic)
+            -> $ Map Tag Dynamic
         'reload! $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn reload! () (println |Reload) &unit
           :examples $ []
-          :schema $ :: 'Fn $ {} (:return 'Unit)
-            :args $ []
+          :schema $ quote $ Fn (-> Unit)
       :ns $ %{} 'NsEntry (:doc |)
         :code $ quote $ ns app.main
           :require
