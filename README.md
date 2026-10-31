@@ -2,8 +2,8 @@
 
 based on [calcit-http](https://github.com/calcit-lang/calcit-http).
 
-使用者注意：本项目现配对正式 Calcit **0.32.0**、HTTP **0.3.26** 和
-Stir Template **0.0.22**。升级时同步安装完整精确依赖图；旧 CLI 不应读取本次
+使用者注意：本项目现配对正式 Calcit **0.32.1**、HTTP **0.3.27** 和
+Stir Template **0.0.22**。升级时同步安装完整精确依赖图；旧 CLI 不应读取 0.32 版本
 规范化后的类型标注。项目版本仍为 `0.0.13`，不代表发布了新的项目 tag。
 此项目仅为 native HTTP 开发示例，不部署或重启任何服务。
 
@@ -19,7 +19,7 @@ caps verify --toolchain
 calcit calcit.cirru --entry server
 ```
 
-本轮同步工具链与两个已发布依赖，并由官方 format 迁移类型表示；5 个定义的
+本轮对齐工具链与已发布的 HTTP patch；Stir 仍为原正式版，Snapshot 与 5 个定义的
 语义 schema 保持不变。Caps strict、toolchain、全定义检查及完整 strict 已通过，
 原 JSON/HTML/单次 POST smoke 在隔离回环进程中通过，包含 Unicode、false、0、null。
 Stir 的普通 HTML 标签返回元素 Map，开放 HTML 值合同保留。
@@ -42,7 +42,7 @@ server example has no frontend artifact and needs no COS upload configuration.
 历史上从正式 tag `0.0.10` 升级到 `0.0.13` 时，包含以下迁移：
 退役 `calcit-json` 改用 core `json-parse` / `json-pretty`，path/body 读取检查为
 `Option<String>`，handler 的输入输出从整体 Dynamic 收窄为 `Map<Tag,Dynamic>`，
-并使用当前 match / Option 方法。本次相对 main 只规范化类型表示，不把它
+并使用当前 match / Option 方法。本次相对 main 只更新工具链和 HTTP 依赖，不把它
 扩大为相对旧 tag 没有源码变化。两入口继续 native，旧接口恢复需成套回退依赖。
 
 strict 仍记录请求/响应两个异构 Map 边界及缺失 POST body 对应的 nil；
