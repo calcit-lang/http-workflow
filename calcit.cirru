@@ -35,7 +35,8 @@
             ; mid-call
             match
               .unwrap-or
-                decode-map-as (get req :path) (:: 'Option 'String)
+                decode-map-as (get req :path)
+                  quote $ Option String
                 , |
               |/html $ {} (:status :ok) (:code 200)
                 :headers $ {} $ :content-type |text/html
@@ -50,7 +51,8 @@
                 :headers $ {} $ :content-type |application/json
                 :body $ json-pretty $ {} (:message "|a piece of json") (:status false)
               |/post-json $ let
-                  body $ decode-map-as (get req :body) (:: 'Option 'String)
+                  body $ decode-map-as (get req :body)
+                    quote $ Option String
                   data $ if (.some? body)
                     json-parse $ .unwrap body
                     , nil
