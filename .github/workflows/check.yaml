@@ -42,6 +42,15 @@ jobs:
           calcit calcit.cirru fix --workflow strict --verify --format json | jq -e 'if .data.workflow.status == "passed" and .diagnostics == [] then true else ., false end'
           calcit analyze weak-types --only deprecated-call --summary-only --format json | jq -e '.data.summary.calls == 0'
 
+      - name: "reject schema widening in pull requests"
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set -euo pipefail
+          git fetch --no-tags --depth=1 origin "$BASE_SHA"
+          calcit analyze program-diff "$BASE_SHA" --fail-on-widening --format json
+
       - name: "smoke test HTTP runtime"
         run: |
           set -euo pipefail
