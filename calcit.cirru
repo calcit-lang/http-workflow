@@ -34,6 +34,14 @@
           :code $ quote $ defn mid-call () (println "|Calling internal function") &unit
           :examples $ []
           :schema $ quote $ Fn (-> Unit)
+        'ok-response $ %{} 'CodeEntry (:doc |)
+          :code $ quote $ defn ok-response (content-type response-body)
+            {} (:status :ok) (:code 200)
+              :headers $ {} $ :content-type content-type
+              :body response-body
+          :examples $ []
+          :schema $ quote $ Fn String String
+            -> $ Map Tag ResponseValue
         'on-request $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn on-request (req)
             println "|Handling request:" $ get req :body
@@ -43,18 +51,16 @@
                 decode-map-as (get req :path)
                   quote $ Option String
                 , |
-              |/html $ {} (:status :ok) (:code 200)
-                :headers $ {} $ :content-type |text/html
-                :body $ make-page $ {} (:title "|Calcit HTTP Demo")
+              |/html $ ok-response |text/html $ make-page
+                {} (:title "|Calcit HTTP Demo")
                   :styles $ [] |https://cdn.tiye.me/favored-fonts/main-fonts.css
                   :content $ div
                     {} $ :style $ {} (:font-family ui/font-normal)
                     h1
                       {} $ :style $ {} (:color :red)
                       , "|A demo page"
-              |/json $ {} (:status :ok) (:code 200)
-                :headers $ {} $ :content-type |application/json
-                :body $ json-pretty $ {} (:message "|a piece of json") (:status false)
+              |/json $ ok-response |application/json $ json-pretty
+                {} (:message "|a piece of json") (:status false)
               |/post-json $ let
                   body $ decode-map-as (get req :body)
                     quote $ Option String
@@ -62,12 +68,8 @@
                     json-parse $ .unwrap body
                     , nil
                 println "|POST data:" data
-                {} (:status :ok) (:code 200)
-                  :headers $ {} $ :content-type |application/json
-                  :body $ json-pretty $ {} (:message "|another piece of json") (:status false) (:sent-data data)
-              _ $ {} (:status :ok) (:code 200)
-                :headers $ {} $ :content-type |text/json
-                :body $ format-cirru-edn req
+                ok-response |application/json $ json-pretty $ {} (:message "|another piece of json") (:status false) (:sent-data data)
+              _ $ ok-response |text/json $ format-cirru-edn req
           :examples $ []
           :schema $ quote $ Fn (Map Tag Dynamic)
             -> $ Map Tag ResponseValue
