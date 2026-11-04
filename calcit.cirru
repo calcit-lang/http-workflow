@@ -14,6 +14,11 @@
   :files $ {} $ 'app.main
     %{} 'FileEntry
       :defs $ {}
+        'ResponseValue $ %{} 'CodeEntry (:doc |)
+          :code $ quote $ defunion ResponseValue Tag Number String
+            quote $ Map Tag String
+          :examples $ []
+          :schema $ quote UnionDef
         'demo-server! $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn demo-server! ()
             serve-http!
@@ -65,7 +70,7 @@
                 :body $ format-cirru-edn req
           :examples $ []
           :schema $ quote $ Fn (Map Tag Dynamic)
-            -> $ Map Tag Dynamic
+            -> $ Map Tag ResponseValue
         'reload! $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn reload! () (println |Reload) &unit
           :examples $ []
