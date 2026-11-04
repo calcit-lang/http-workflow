@@ -45,6 +45,7 @@ CI retains the existing localhost JSON, HTML, and POST smoke test. This native
 server example has no frontend artifact and needs no COS upload configuration.
 
 构造函数展开后的 handler AST 与原版完全一致；JSON/HTML/POST 路由和服务监听配置保持。保留原 CI 和类型门禁，
+PR 另用现有 `program-diff --fail-on-widening` 拒绝返回槽退回 Dynamic 等 schema 放宽；
 不增加检查脚本、强转或质量预算。测试副本仅覆盖监听地址及端口，验收后已停止。
 
 历史上从正式 tag `0.0.10` 升级到 `0.0.13` 时，包含以下迁移：
