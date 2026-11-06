@@ -2,8 +2,8 @@
 
 based on [calcit-http](https://github.com/calcit-lang/calcit-http).
 
-使用者注意：本项目现配对正式 Calcit **0.34.2**、HTTP **0.3.29** 和
-Stir Template **0.1.1**。升级时同步安装完整精确依赖图并重新构建目标架构的原生动态库；旧 CLI 不应读取新版本
+使用者注意：本项目现配对正式 Calcit **0.35.1**、HTTP **0.3.30** 和
+Stir Template **0.2.0**。升级时同步安装完整精确依赖图并重新构建目标架构的原生动态库；旧 CLI 不应读取新版本
 规范化后的类型标注。项目版本仍为 `0.0.13`，不代表发布了新的项目 tag。
 此项目仅为 native HTTP 开发示例，不部署或重启任何服务。
 

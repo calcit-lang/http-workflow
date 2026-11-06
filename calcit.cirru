@@ -15,8 +15,7 @@
     %{} 'FileEntry
       :defs $ {}
         'ResponseValue $ %{} 'CodeEntry (:doc |)
-          :code $ quote $ defunion ResponseValue Tag Number String
-            quote $ Map Tag String
+          :code $ quote $ defunion ResponseValue Tag Number String (Map Tag String)
           :examples $ []
           :schema $ quote UnionDef
         'demo-server! $ %{} 'CodeEntry (:doc |)
@@ -48,8 +47,7 @@
             ; mid-call
             match
               .unwrap-or
-                decode-map-as (get req :path)
-                  quote $ Option String
+                decode-map-as (get req :path) (Option String)
                 , |
               |/html $ ok-response |text/html $ make-page
                 {} (:title "|Calcit HTTP Demo")
@@ -62,8 +60,7 @@
               |/json $ ok-response |application/json $ json-pretty
                 {} (:message "|a piece of json") (:status false)
               |/post-json $ let
-                  body $ decode-map-as (get req :body)
-                    quote $ Option String
+                  body $ decode-map-as (get req :body) (Option String)
                   data $ if (.some? body)
                     json-parse $ .unwrap body
                     , nil
