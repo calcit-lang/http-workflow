@@ -21,7 +21,7 @@
         'demo-server! $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn demo-server! ()
             serve-http!
-              {} $ :port 4000
+              Option :some $ {} $ :port 4000
               fn (req) (on-request req)
           :examples $ []
           :schema $ quote $ Fn (-> FfiTask)

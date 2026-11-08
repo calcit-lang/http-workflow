@@ -2,9 +2,9 @@
 
 based on [calcit-http](https://github.com/calcit-lang/calcit-http).
 
-使用者注意：本项目现配对正式 Calcit **0.35.1**、HTTP **0.3.30** 和
-Stir Template **0.2.0**。升级时同步安装完整精确依赖图并重新构建目标架构的原生动态库；旧 CLI 不应读取新版本
-规范化后的类型标注。项目版本仍为 `0.0.13`，不代表发布了新的项目 tag。
+使用者注意：候选 `0.0.14` 配对 Calcit **0.37.0**、HTTP **0.4.0** 和
+Stir Template **0.2.1**。更新依赖后，请为目标架构重新构建原生动态库。
+HTTP 的配置参数现在用 `Option :some` 包装，示例沿用原端口和路由。
 此项目仅为 native HTTP 开发示例，不部署或重启任何服务。
 
 示例默认监听配置保持不变，不能当作已认证的生产接口；本地试用应显式绑定回环，
@@ -19,7 +19,7 @@ caps verify --toolchain
 calcit calcit.cirru --entry server
 ```
 
-本轮对齐工具链与已发布 HTTP / Stir，并将 `on-request` 返回值收紧为 `Map<Tag,ResponseValue>`。
+`on-request` 返回 `Map<Tag,ResponseValue>`。
 `ResponseValue = Tag | Number | String | Map<Tag,String>` 覆盖当前状态、状态码、正文和 headers；
 它约束值域，不表达按键区分的完整响应结构。四处重复的成功响应统一使用 `ok-response`，
 该构造函数固定原状态与 200 状态码，并要求 Content-Type 和正文均为 String。
@@ -51,8 +51,7 @@ PR 另用现有 `program-diff --fail-on-widening` 拒绝返回槽退回 Dynamic 
 历史上从正式 tag `0.0.10` 升级到 `0.0.13` 时，包含以下迁移：
 退役 `calcit-json` 改用 core `json-parse` / `json-pretty`，path/body 读取检查为
 `Option<String>`，handler 的输入输出从整体 Dynamic 收窄为 `Map<Tag,Dynamic>`，
-并使用当前 match / Option 方法。本次相对 main 更新工具链、HTTP/Stir 依赖与响应值的 union 合同，不把它
-扩大为相对旧 tag 没有源码变化。两入口继续 native，旧接口恢复需成套回退依赖。
+并使用当前 match / Option 方法。两入口继续 native，回退时应成套还原工具链和依赖。
 
 strict 仍如实记录原始请求、解析后的开放 JSON 和缺失 POST body 对应的 nil；
 响应输出的 Dynamic 由实际可证明的 union 替代，不以强转隐藏边界。本地验收不代表所有平台的运行支持。
