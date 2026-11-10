@@ -21,7 +21,7 @@
         'demo-server! $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn demo-server! ()
             serve-http!
-              Option :some $ {} $ :port 4000
+              Some $ {} $ :port 4000
               fn (req) (on-request req)
           :examples $ []
           :schema $ quote $ Fn (-> FfiTask)
@@ -43,33 +43,29 @@
             -> $ Map Tag ResponseValue
         'on-request $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn on-request (req)
-            println "|Handling request:" $ get req :body
-            ; mid-call
-            match
-              .unwrap-or
-                decode-map-as (get req :path) (Option String)
-                , |
-              |/html $ ok-response |text/html $ make-page
-                {} (:title "|Calcit HTTP Demo")
-                  :styles $ [] |https://cdn.tiye.me/favored-fonts/main-fonts.css
-                  :content $ div
-                    {} $ :style $ {} (:font-family ui/font-normal)
-                    h1
-                      {} $ :style $ {} (:color :red)
-                      , "|A demo page"
-              |/json $ ok-response |application/json $ json-pretty
-                {} (:message "|a piece of json") (:status false)
-              |/post-json $ let
-                  body $ decode-map-as (get req :body) (Option String)
-                  data $ if (.some? body)
-                    json-parse $ .unwrap body
-                    , nil
-                println "|POST data:" data
-                ok-response |application/json $ json-pretty $ {} (:message "|another piece of json") (:status false) (:sent-data data)
-              _ $ ok-response |text/json $ format-cirru-edn req
+            let
+                request $ http.core/decode-request req
+              println "|Handling request:" $ :body request
+              match (:path request)
+                |/html $ ok-response |text/html $ make-page
+                  {} (:title "|Calcit HTTP Demo")
+                    :styles $ [] |https://cdn.tiye.me/favored-fonts/main-fonts.css
+                    :content $ div
+                      {} $ :style $ {} (:font-family ui/font-normal)
+                      h1
+                        {} $ :style $ {} (:color :red)
+                        , "|A demo page"
+                |/json $ ok-response |application/json $ json-pretty
+                  {} (:message "|a piece of json") (:status false)
+                |/post-json $ let
+                    data $ json-parse $ .unwrap-or (:body request) |null
+                  println "|POST data:" data
+                  ok-response |application/json $ json-pretty $ {} (:message "|another piece of json") (:status false) (:sent-data data)
+                _ $ ok-response |text/json $ format-cirru-edn req
           :examples $ []
           :schema $ quote $ Fn (Map Tag Dynamic)
             -> $ Map Tag ResponseValue
+            :open :decode
         'reload! $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn reload! () (println |Reload) &unit
           :examples $ []
