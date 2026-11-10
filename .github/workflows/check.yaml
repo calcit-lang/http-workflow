@@ -86,3 +86,5 @@ jobs:
             --data '{"hello":"calcit","text":"中文🌱","flag":false,"count":0,"value":null}' \
             http://127.0.0.1:4000/post-json > "$RUNNER_TEMP/http-workflow-post-json.txt"
           jq -e '.["sent-data"] == {"hello":"calcit","text":"中文🌱","flag":false,"count":0,"value":null}' "$RUNNER_TEMP/http-workflow-post-json.txt"
+          curl --fail --silent --connect-timeout 2 --max-time 5 --request POST --data '' \
+            http://127.0.0.1:4000/post-json | jq -e 'has("sent-data") and .["sent-data"] == null'

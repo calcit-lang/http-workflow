@@ -58,7 +58,8 @@
                 |/json $ ok-response |application/json $ json-pretty
                   {} (:message "|a piece of json") (:status false)
                 |/post-json $ let
-                    data $ json-parse $ .unwrap-or (:body request) |null
+                    text $ .unwrap-or (:body request) |
+                    data $ json-parse $ if (= text |) |null text
                   println "|POST data:" data
                   ok-response |application/json $ json-pretty $ {} (:message "|another piece of json") (:status false) (:sent-data data)
                 _ $ ok-response |text/json $ format-cirru-edn req
