@@ -2,7 +2,7 @@
 
 based on [calcit-http](https://github.com/calcit-lang/calcit-http).
 
-使用者注意：候选 `0.0.14` 配对 Calcit **0.38.0**、HTTP **0.4.0** 和
+使用者注意：候选 `0.0.14` 配对 Calcit **0.40.0**、HTTP **0.4.0** 和
 Stir Template **0.2.1**。更新依赖后，请为目标架构重新构建原生动态库。
 HTTP 的配置参数现在用 `Option :some` 包装，示例沿用原端口和路由。
 此项目仅为 native HTTP 开发示例，不部署或重启任何服务。
