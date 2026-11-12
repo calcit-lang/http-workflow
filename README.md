@@ -2,7 +2,7 @@
 
 based on [calcit-http](https://github.com/calcit-lang/calcit-http).
 
-使用者注意：候选 `0.0.14` 配对 Calcit **0.41.1**、HTTP **0.4.1** 和
+使用者注意：候选 `0.0.14` 配对 Calcit **0.42.0**、HTTP **0.4.1** 和
 Stir Template **0.2.1**。更新依赖后，请为目标架构重新构建原生动态库。
 
 路由通过 HTTP 的具名 `Request` 读取路径和请求体。无请求体时，
@@ -22,7 +22,7 @@ caps verify --toolchain
 calcit calcit.cirru --entry server
 ```
 
-`on-request` 返回 `Map<Tag,ResponseValue>`。
+`on-request` 只接收具名 `Request`，已知路由返回 `Some (Map Tag ResponseValue)`。未知路由由服务器入口直接回显原始请求。
 `ResponseValue = Tag | Number | String | Map<Tag,String>` 覆盖当前状态、状态码、正文和 headers；
 它约束值域，不表达按键区分的完整响应结构。四处重复的成功响应统一使用 `ok-response`，
 该构造函数固定原状态与 200 状态码，并要求 Content-Type 和正文均为 String。
