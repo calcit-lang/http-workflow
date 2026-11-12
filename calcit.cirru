@@ -22,17 +22,22 @@
           :code $ quote $ defn demo-server! ()
             serve-http!
               Some $ {} $ :port 4000
-              fn (req) (on-request req)
+              fn (raw)
+                match
+                  on-request $ http.core/decode-request raw
+                  (:some response) response
+                  (:none)
+                    ok-response |text/json $ format-cirru-edn raw
           :examples $ []
-          :schema $ quote $ Fn (-> FfiTask)
+          :schema $ quote $ Fn (-> FfiTask) (:features :io)
         'main! $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn main! () (demo-server!)
           :examples $ []
-          :schema $ quote $ Fn (-> FfiTask)
+          :schema $ quote $ Fn (-> FfiTask) (:features :io)
         'mid-call $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn mid-call () (println "|Calling internal function") &unit
           :examples $ []
-          :schema $ quote $ Fn (-> Unit)
+          :schema $ quote $ Fn (-> Unit) (:features :io)
         'ok-response $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn ok-response (content-type response-body)
             {} (:status :ok) (:code 200)
@@ -42,35 +47,34 @@
           :schema $ quote $ Fn String String
             -> $ Map Tag ResponseValue
         'on-request $ %{} 'CodeEntry (:doc |)
-          :code $ quote $ defn on-request (req)
-            let
-                request $ http.core/decode-request req
-              println "|Handling request:" $ :body request
-              match (:path request)
-                |/html $ ok-response |text/html $ make-page
-                  {} (:title "|Calcit HTTP Demo")
-                    :styles $ [] |https://cdn.tiye.me/favored-fonts/main-fonts.css
-                    :content $ div
-                      {} $ :style $ {} (:font-family ui/font-normal)
-                      h1
-                        {} $ :style $ {} (:color :red)
-                        , "|A demo page"
-                |/json $ ok-response |application/json $ json-pretty
-                  {} (:message "|a piece of json") (:status false)
-                |/post-json $ let
-                    text $ .unwrap-or (:body request) |
-                    data $ json-parse $ if (= text |) |null text
-                  println "|POST data:" data
-                  ok-response |application/json $ json-pretty $ {} (:message "|another piece of json") (:status false) (:sent-data data)
-                _ $ ok-response |text/json $ format-cirru-edn req
+          :code $ quote $ defn on-request (request)
+            println "|Handling request:" $ :body request
+            match (:path request)
+              |/html $ Some $ ok-response |text/html
+                make-page $ {} (:title "|Calcit HTTP Demo")
+                  :styles $ [] |https://cdn.tiye.me/favored-fonts/main-fonts.css
+                  :content $ div
+                    {} $ :style $ {} (:font-family ui/font-normal)
+                    h1
+                      {} $ :style $ {} (:color :red)
+                      , "|A demo page"
+              |/json $ Some $ ok-response |application/json
+                json-pretty $ {} (:message "|a piece of json") (:status false)
+              |/post-json $ let
+                  text $ .unwrap-or (:body request) |
+                  data $ json-parse $ if (= text |) |null text
+                println "|POST data:" data
+                Some $ ok-response |application/json $ json-pretty
+                  {} (:message "|another piece of json") (:status false) (:sent-data data)
+              _ None
           :examples $ []
-          :schema $ quote $ Fn (Map Tag Dynamic)
-            -> $ Map Tag ResponseValue
-            :open :decode
+          :schema $ quote $ Fn http.core/Request
+            -> $ Option $ Map Tag ResponseValue
+            :features :io
         'reload! $ %{} 'CodeEntry (:doc |)
           :code $ quote $ defn reload! () (println |Reload) &unit
           :examples $ []
-          :schema $ quote $ Fn (-> Unit)
+          :schema $ quote $ Fn (-> Unit) (:features :io)
       :ns $ %{} 'NsEntry (:doc |)
         :code $ quote $ ns app.main
           :require
