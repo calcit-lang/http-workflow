@@ -2,8 +2,8 @@
 
 based on [calcit-http](https://github.com/calcit-lang/calcit-http).
 
-使用者注意：候选 `0.0.14` 配对 Calcit **0.44.0**、HTTP **0.4.1** 和
-Stir Template **0.2.1**。更新依赖后，请为目标架构重新构建原生动态库。
+使用者注意：候选 `0.0.14` 配对 Calcit **0.44.0**、HTTP **0.4.2** 和
+Stir Template **0.2.3**。更新依赖后，请为目标架构重新构建原生动态库。
 
 路由通过 HTTP 的具名 `Request` 读取路径和请求体。无请求体时，
 `/post-json` 仍返回 `"sent-data": null`，未知路由仍回显原始请求。
