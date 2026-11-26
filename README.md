@@ -2,7 +2,7 @@
 
 based on [calcit-http](https://github.com/calcit-lang/calcit-http).
 
-使用者注意：候选 `0.0.14` 配对 Calcit **0.45.1**、HTTP **0.4.3** 和
+使用者注意：当前源码配对 Calcit **0.46.0**、HTTP **0.4.3** 和
 Stir Template **0.2.4**。更新依赖后，请为目标架构重新构建原生动态库。
 
 路由通过 HTTP 的具名 `Request` 读取路径和请求体。无请求体时，
