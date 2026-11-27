@@ -31,7 +31,7 @@ calcit calcit.cirru --entry server
 Caps strict、toolchain、全定义检查及完整 strict 已通过；隔离负例确认 Bool 正文/Bool header 被拒绝，
 构造函数也拒绝 Number 正文/Content-Type。每个负例单独检查，不将混合诊断中的 passed 行当作独立证明。
 原 JSON/HTML/POST smoke 在隔离回环进程中通过，并验证了 Unicode、false、0、null、数组和默认路由。
-HTML 示例使用 Stir 的 `TypedHtmlElement` 约束标题节点的属性和子节点；外层仍使用普通元素 Map，保持原页面结构。
+HTML 示例使用 Stir 的递归 `TypedHtmlElement` 约束外层与标题的属性和子节点，转换为旧格式后交给 `make-page`；页面结构、文本和样式保持不变。
 Read `calcit docs agents --contract`
 before modifying the Snapshot, and use `calcit tree` / `calcit edit` for changes.
 Both entries use the native target and the same HTTP request handler.
