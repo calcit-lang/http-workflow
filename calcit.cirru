@@ -53,11 +53,11 @@
               |/html $ Some $ ok-response |text/html
                 make-page $ {} (:title "|Calcit HTTP Demo")
                   :styles $ [] |https://cdn.tiye.me/favored-fonts/main-fonts.css
-                  :content $ div
-                    {} $ :style $ {} (:font-family ui/font-normal)
-                    h1
-                      {} $ :style $ {} (:color :red)
-                      , "|A demo page"
+                  :content $ div $ {}
+                    :style $ {} $ :font-family ui/font-normal
+                    :innerHTML $ render-typed-node $ TypedHtmlElement :name :h1 :attrs ({}) :style
+                      {} $ :color :red
+                      , :children ([] "|A demo page")
               |/json $ Some $ ok-response |application/json
                 json-pretty $ {} (:message "|a piece of json") (:status false)
               |/post-json $ let
@@ -79,5 +79,6 @@
         :code $ quote $ ns app.main
           :require
             http.core :refer $ serve-http!
-            stir-template.alias :refer $ make-page div h1
             stir-template.ui :as ui
+            stir-template.core :refer $ TypedHtmlElement render-typed-node
+            stir-template.alias :refer $ make-page div

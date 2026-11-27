@@ -3,7 +3,7 @@
 based on [calcit-http](https://github.com/calcit-lang/calcit-http).
 
 使用者注意：当前源码配对 Calcit **0.46.0**、HTTP **0.4.4** 和
-Stir Template **0.2.5**。更新依赖后，请为目标架构重新构建原生动态库。
+Stir Template **0.2.6**。更新依赖后，请为目标架构重新构建原生动态库。
 
 路由通过 HTTP 的具名 `Request` 读取路径和请求体。无请求体时，
 `/post-json` 仍返回 `"sent-data": null`，未知路由仍回显原始请求。
@@ -31,7 +31,7 @@ calcit calcit.cirru --entry server
 Caps strict、toolchain、全定义检查及完整 strict 已通过；隔离负例确认 Bool 正文/Bool header 被拒绝，
 构造函数也拒绝 Number 正文/Content-Type。每个负例单独检查，不将混合诊断中的 passed 行当作独立证明。
 原 JSON/HTML/POST smoke 在隔离回环进程中通过，并验证了 Unicode、false、0、null、数组和默认路由。
-Stir 的普通 HTML 标签返回元素 Map，开放 HTML 值合同保留。
+HTML 示例使用 Stir 的 `TypedHtmlElement` 约束标题节点的属性和子节点；外层仍使用普通元素 Map，保持原页面结构。
 Read `calcit docs agents --contract`
 before modifying the Snapshot, and use `calcit tree` / `calcit edit` for changes.
 Both entries use the native target and the same HTTP request handler.
@@ -47,7 +47,7 @@ intentionally remains Dynamic.
 CI retains the existing localhost JSON, HTML, and POST smoke test. This native
 server example has no frontend artifact and needs no COS upload configuration.
 
-构造函数展开后的 handler AST 与原版完全一致；JSON/HTML/POST 路由和服务监听配置保持。保留原 CI 和类型门禁，
+JSON/HTML/POST 路由、页面结构和服务监听配置保持。保留原 CI 和类型门禁，
 PR 另用现有 `program-diff --fail-on-widening` 拒绝返回槽退回 Dynamic 等 schema 放宽；
 不增加检查脚本、强转或质量预算。测试副本仅覆盖监听地址及端口，验收后已停止。
 
